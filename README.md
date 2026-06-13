@@ -1,36 +1,115 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Sistem Pendataan Kader Hidayatullah
+## DPW DIY-Jateng Bagian Selatan
 
-## Getting Started
+Website pendataan kaderisasi berbasis Next.js + Supabase.
 
-First, run the development server:
+---
+
+## 🚀 Cara Setup
+
+### 1. Clone & Install Dependencies
+
+```bash
+git clone <repo-url>
+cd kader-hidayatullah
+npm install
+```
+
+### 2. Setup Supabase
+
+1. Buat project baru di [supabase.com](https://supabase.com)
+2. Masuk ke **SQL Editor** di dashboard Supabase
+3. Copy seluruh isi file `supabase/schema.sql` dan jalankan di SQL Editor
+4. Ambil **Project URL** dan **anon/public key** dari **Settings → API**
+
+### 3. Konfigurasi Environment
+
+Edit file `.env.local`:
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=https://xxxxxxxxxxxx.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+```
+
+### 4. Buat User Admin
+
+Di Supabase dashboard → **Authentication → Users → Add User**:
+
+- Buat user untuk **Admin Pusat**
+- Setelah dibuat, masuk ke **Table Editor → profiles**
+- Set `role = 'pusat'` untuk admin pusat
+- Set `role = 'dpd'` dan pilih `dpd` yang sesuai untuk admin per-DPD
+
+### 5. Jalankan di Lokal
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Buka [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🌐 Deploy ke Vercel
 
-## Learn More
+1. Push ke GitHub/GitLab
+2. Import project di [vercel.com](https://vercel.com)
+3. Set Environment Variables:
+   - `NEXT_PUBLIC_SUPABASE_URL`
+   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+4. Deploy!
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📋 Fitur
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Login** dengan autentikasi Supabase
+- **Role Pusat** — akses semua 18 DPD, lihat rekap per DPD
+- **Role DPD** — hanya bisa akses data DPD-nya sendiri
+- **Dashboard** dengan statistik kader dan marhalah
+- **CRUD Kader** — Tambah, lihat detail, edit, hapus
+- **Form lengkap** sesuai formulir Data Utama Kader Hidayatullah:
+  - Data Pribadi & Identitas
+  - Data Keluarga & Data Anak
+  - Kompetensi & Profesionalisme
+  - Wilayah Tugas & Penugasan
+  - Jenjang Perkaderan (Marhalah Ula/Wustho/Ulya)
+- **Filter per DPD** di halaman data kader
+- **Pencarian** nama/ID kader
+- **Paginasi** tabel data
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🏢 18 DPD Wilayah
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| No | DPD |
+|----|-----|
+| 1 | DPD CILACAP |
+| 2 | DPD BANYUMAS |
+| 3 | DPD KEBUMEN |
+| 4 | DPD PURWOREJO |
+| 5 | DPD MAGELANG KOTA |
+| 6 | DPD KABUPATEN MAGELANG |
+| 7 | DPD TEMANGGUNG |
+| 8 | DPD YOGYAKARTA |
+| 9 | DPD SLEMAN |
+| 10 | DPD BANTUL |
+| 11 | DPD KULONPROGO |
+| 12 | DPD GUNUNGKIDUL |
+| 13 | DPD KLATEN |
+| 14 | DPD WONOGIRI |
+| 15 | DPD SUKOHARJO |
+| 16 | DPD SURAKARTA |
+| 17 | DPD KARANGANYAR |
+| 18 | DPD SRAGEN |
+
+---
+
+## 🛠 Tech Stack
+
+- **Framework**: Next.js 16 (App Router)
+- **Database**: Supabase (PostgreSQL)
+- **Auth**: Supabase Auth
+- **Styling**: Tailwind CSS
+- **Icons**: Lucide React
+- **Deploy**: Vercel
