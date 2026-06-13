@@ -58,3 +58,8 @@ export const WILAYAH_TUGAS_OPTIONS = [
 export const PENDIDIKAN_JENJANG_OPTIONS = [
   'SD', 'SMP', 'SMA/SMK', 'D1', 'D2', 'D3', 'D4', 'S1', 'S2', 'S3',
 ]
+
+export const JENIS_HALAQOH_OPTIONS = [
+  { value: 'Ula', label: 'Ula' },
+  { value: 'Wustho', label: 'Wustho' },
+]

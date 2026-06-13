@@ -94,6 +94,11 @@ CREATE TABLE kader (
   marhalah_wustho_skor marhalah_skor_enum,
   marhalah_ulya_tahun INTEGER,
   marhalah_ulya_skor marhalah_skor_enum,
+
+  -- F. Data Halaqoh
+  nama_halaqoh TEXT,
+  nama_murobbi TEXT,
+  jenis_halaqoh TEXT CHECK (jenis_halaqoh IN ('Ula', 'Wustho')),
   
   -- Metadata
   dpd dpd_enum NOT NULL,

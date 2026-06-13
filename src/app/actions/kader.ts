@@ -87,6 +87,9 @@ export async function createKader(formData: FormData) {
     marhalah_wustho_skor: (formData.get('marhalah_wustho_skor') as string) || null,
     marhalah_ulya_tahun: formData.get('marhalah_ulya_tahun') ? parseInt(formData.get('marhalah_ulya_tahun') as string) : null,
     marhalah_ulya_skor: (formData.get('marhalah_ulya_skor') as string) || null,
+    nama_halaqoh: (formData.get('nama_halaqoh') as string) || null,
+    nama_murobbi: (formData.get('nama_murobbi') as string) || null,
+    jenis_halaqoh: (formData.get('jenis_halaqoh') as string) || null,
     dpd: formData.get('dpd') as DpdEnum,
     created_by: user.id,
   }
@@ -162,6 +165,9 @@ export async function updateKader(id: string, formData: FormData) {
     marhalah_wustho_skor: (formData.get('marhalah_wustho_skor') as string) || null,
     marhalah_ulya_tahun: formData.get('marhalah_ulya_tahun') ? parseInt(formData.get('marhalah_ulya_tahun') as string) : null,
     marhalah_ulya_skor: (formData.get('marhalah_ulya_skor') as string) || null,
+    nama_halaqoh: (formData.get('nama_halaqoh') as string) || null,
+    nama_murobbi: (formData.get('nama_murobbi') as string) || null,
+    jenis_halaqoh: (formData.get('jenis_halaqoh') as string) || null,
     dpd: formData.get('dpd') as DpdEnum,
   }
 
@@ -244,9 +250,26 @@ export async function getDashboardStats(dpd?: DpdEnum) {
   const marhalahUlya = rows.filter(k => k.marhalah_ulya_skor).length
 
   const perDpd: Record<string, number> = {}
+  const perDpdDetail: Record<string, { total: number; belum: number; ula: number; wustho: number; ulya: number }> = {}
+
   rows.forEach(k => {
     perDpd[k.dpd] = (perDpd[k.dpd] || 0) + 1
+
+    if (!perDpdDetail[k.dpd]) {
+      perDpdDetail[k.dpd] = { total: 0, belum: 0, ula: 0, wustho: 0, ulya: 0 }
+    }
+    perDpdDetail[k.dpd].total += 1
+
+    if (k.marhalah_ulya_skor) {
+      perDpdDetail[k.dpd].ulya += 1
+    } else if (k.marhalah_wustho_skor) {
+      perDpdDetail[k.dpd].wustho += 1
+    } else if (k.marhalah_ula_skor) {
+      perDpdDetail[k.dpd].ula += 1
+    } else {
+      perDpdDetail[k.dpd].belum += 1
+    }
   })
 
-  return { total, belumMarhalah, marhalahUla, marhalahWustho, marhalahUlya, perDpd }
+  return { total, belumMarhalah, marhalahUla, marhalahWustho, marhalahUlya, perDpd, perDpdDetail }
 }

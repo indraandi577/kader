@@ -16,6 +16,7 @@ import {
   MARHALAH_SKOR_OPTIONS,
   WILAYAH_TUGAS_OPTIONS,
   PENDIDIKAN_JENJANG_OPTIONS,
+  JENIS_HALAQOH_OPTIONS,
 } from '@/lib/constants'
 import { Plus, Trash2, ChevronDown, ChevronUp } from 'lucide-react'
 
@@ -50,6 +51,7 @@ export default function KaderForm({ kader, profile }: KaderFormProps) {
     kompetensi: true,
     penugasan: true,
     marhalah: true,
+    halaqoh: true,
   })
 
   const toggleSection = (section: keyof typeof openSections) => {
@@ -523,6 +525,41 @@ export default function KaderForm({ kader, profile }: KaderFormProps) {
                   </tr>
                 </tbody>
               </table>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* ── F. DATA HALAQOH ── */}
+      <div className={SECTION_CLASS}>
+        <div className={SECTION_HEADER} onClick={() => toggleSection('halaqoh')}>
+          <h2 className={SECTION_TITLE}>F. Data Halaqoh</h2>
+          {openSections.halaqoh ? <ChevronUp size={16} className="text-green-600" /> : <ChevronDown size={16} className="text-green-600" />}
+        </div>
+        {openSections.halaqoh && (
+          <div className={SECTION_BODY}>
+            <div className="space-y-4">
+              <div className={GRID_2}>
+                <Input
+                  label="Nama Halaqoh"
+                  name="nama_halaqoh"
+                  defaultValue={kader?.nama_halaqoh || ''}
+                  placeholder="Contoh: Halaqoh Al-Ikhlas"
+                />
+                <Input
+                  label="Nama Murobbi"
+                  name="nama_murobbi"
+                  defaultValue={kader?.nama_murobbi || ''}
+                  placeholder="Nama pembimbing halaqoh"
+                />
+              </div>
+              <Select
+                label="Jenis Halaqoh"
+                name="jenis_halaqoh"
+                defaultValue={kader?.jenis_halaqoh || ''}
+                options={JENIS_HALAQOH_OPTIONS}
+                placeholder="Pilih jenis halaqoh..."
+              />
             </div>
           </div>
         )}

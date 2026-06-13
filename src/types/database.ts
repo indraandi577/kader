@@ -1,3 +1,4 @@
+export type JenisHalaqoh = 'Ula' | 'Wustho'
 export type JenisKelamin = 'L' | 'P'
 export type StatusNikah = 'Belum Menikah' | 'Menikah' | 'Duda' | 'Janda'
 export type AmanahOrganisasi = 'Anggota' | 'Pengurus DPD' | 'Pengurus PD' | 'Pengurus DPW' | 'Pengurus DPP'
@@ -67,6 +68,10 @@ export interface Kader {
   marhalah_wustho_skor: MarhalahSkor | null
   marhalah_ulya_tahun: number | null
   marhalah_ulya_skor: MarhalahSkor | null
+  // Data Halaqoh
+  nama_halaqoh: string | null
+  nama_murobbi: string | null
+  jenis_halaqoh: JenisHalaqoh | null
   dpd: DpdEnum
   created_by: string | null
   created_at: string

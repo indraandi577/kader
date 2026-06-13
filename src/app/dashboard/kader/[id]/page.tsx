@@ -132,7 +132,12 @@ export default async function KaderDetailPage({ params }: PageProps) {
         <DetailRow label="Riwayat Penugasan" value={kader.riwayat_penugasan} />
       </SectionCard>
 
-      {/* E. Marhalah */}
+      {/* F. Halaqoh */}
+      <SectionCard title="F. Data Halaqoh">
+        <DetailRow label="Nama Halaqoh" value={kader.nama_halaqoh} />
+        <DetailRow label="Nama Murobbi" value={kader.nama_murobbi} />
+        <DetailRow label="Jenis Halaqoh" value={kader.jenis_halaqoh} />
+      </SectionCard>      {/* E. Marhalah */}
       <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
         <div className="bg-green-50 border-b border-green-100 px-5 py-3">
           <h3 className="font-semibold text-green-800 text-sm">E. Metrik Pengukuran Jenjang Perkaderan</h3>
