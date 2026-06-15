@@ -5,10 +5,14 @@ import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import Button from '@/components/ui/Button'
 import Input from '@/components/ui/Input'
-import { Eye, EyeOff, Lock, Mail } from 'lucide-react'
+import { Eye, EyeOff, Lock, User } from 'lucide-react'
+
+// Username dikonversi ke format email internal
+const toEmail = (username: string) =>
+  `${username.trim().toLowerCase()}@hidayatullah.internal`
 
 export default function LoginPage() {
-  const [email, setEmail] = useState('')
+  const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -21,10 +25,11 @@ export default function LoginPage() {
     setError(null)
     setLoading(true)
 
+    const email = toEmail(username)
     const { error } = await supabase.auth.signInWithPassword({ email, password })
 
     if (error) {
-      setError('Email atau password salah. Silakan coba lagi.')
+      setError('Username atau password salah. Silakan coba lagi.')
       setLoading(false)
       return
     }
@@ -59,16 +64,17 @@ export default function LoginPage() {
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="relative">
-              <Mail size={16} className="absolute left-3 top-9 text-gray-400" />
+              <User size={16} className="absolute left-3 top-9 text-gray-400" />
               <Input
-                label="Email"
-                type="email"
-                value={email}
-                onChange={e => setEmail(e.target.value)}
+                label="Username"
+                type="text"
+                value={username}
+                onChange={e => setUsername(e.target.value)}
                 required
-                placeholder="email@hidayatullah.com"
+                placeholder="Masukkan username"
                 className="pl-9"
-                autoComplete="email"
+                autoComplete="username"
+                autoCapitalize="none"
               />
             </div>
 
